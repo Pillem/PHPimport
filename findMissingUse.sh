@@ -130,12 +130,10 @@ elif [ $1 == "-a" ]; then
     fi
     classesA=$(grep -oRPH --include='*.php' --exclude-dir={vendor,database,storage} "$regexA")
     classesB=$(grep -oRPH --include='*.php' --exclude-dir={vendor,database,storage} "$regexB")
-    classesC=$( echo "$traits" | grep -oRHF --include='*.php' --exclude-dir={vendor,database,storage} )
+    classesC=$( grep -oRHF --include='*.php' --exclude-dir={vendor,database,storage} "$traits" )
 else 
-    echo "huh"
     help
 fi
-
 
 classes=$( ( echo "$classesA" & echo "$classesB" & echo "$classesC" ) | grep -vP 'PDO' | grep -v -e '^[[:space:]]*$' | sort -u)
     
